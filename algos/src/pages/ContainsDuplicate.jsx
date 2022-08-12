@@ -1,55 +1,61 @@
 import React, {useState} from "react";
 
 export default function ContainsDuplicate(){
-    let example = [234, 43, 55, 63, 5, 6]
+    let [example, setExample] = useState([234, 43, 55, 63, 5, 6])
     let [num, setNum] = useState(example);
     let [newNum, setNewNum] = useState([]);
+    //Turns num state into text
     let text = num.join();
 
-    let theLength;
-    let numLength;
-    function duplicate(nums) {
-        let set1 = new Set(nums)
-        theLength = set1.size
-        numLength = nums.length
-        text = num.join();
-        if(nums.length !== theLength){
-            return "true"
+    let numsSet;
+    function duplicate(nums, ex) {
+        numsSet = new Set(nums)
+        console.log(numsSet.size)
+        console.log(ex.length)
+        
+        if(numsSet.size !== ex.length){
+            return "This array contains a duplicate"
         }else{
-            return "false"
+            return "This array does not contain a duplicate"
         }
     };
 
-
+    /* Arrow function that pushes new number into array when called on */
     const handleClick = () => {
-        setNum([...num, newNum]);
-        example.push(parseInt(newNum))
-        console.log(example)
+        setNum([...num, parseInt(newNum)]);
+        setExample([...num, parseInt(newNum)]);
     };
-
-    const handleRemove = () => {
-        setNum(num.slice(0, -1))
-    }
 
     return(
         <div className="main">
+            {/* Title of algorithm */}
             <h1>Contains Duplicate</h1>
+            {/* Difficulty Level */}
             <h2>Difficulty: Easy</h2>
-            <h1>{theLength}</h1>
-            <h1>{numLength}</h1>
+            {/* Array formatted as text */}
             <h1>{text}</h1>
-            <h1>{duplicate(num)}</h1>
+            {/* Display of True or False of if the array contains a duplicate */}
+            <h1>{duplicate(num, example)}</h1>
             
+            {/* Input of number user can add to array */}
             <input type="number" onChange={e => setNewNum(e.target.value)}></input>
-            
-            {/* 
-            <input type="button" onClick={handleRemove} value="remove">Remove</input> */}
 
-            <input type="button" onClick={handleClick} value="Add" />
-                <div>{num.map((num, index) =>
-                <div key={index}>{num}</div>
-            )}
-        </div>
+            {/* Button to add current number input */}
+            <input 
+                type="button"
+                /* Use of onClick with handlClick arrow function above */
+                onClick={handleClick} 
+                value="Add" 
+            />
+
+                {/* Mapping of current numbers in array */}
+                <div>
+                    {num.map((num, index) =>
+                        <div key={index}>{num}
+                        </div>
+                        )
+                    }
+                </div>
         </div>
     )
 }
