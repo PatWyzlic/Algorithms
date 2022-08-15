@@ -22,6 +22,7 @@ export default function ContainsDuplicate(){
 
     /* Arrow function that pushes new number into array when called on */
     const handleClick = () => {
+        //Pushes in the newNum entered into both num and example
         setNum([...num, parseInt(newNum)]);
         setExample([...num, parseInt(newNum)]);
     };
